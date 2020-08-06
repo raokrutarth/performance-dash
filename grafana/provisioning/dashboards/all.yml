@@ -1,7 +1,7 @@
 apiVersion: 1
 
 providers:
-- name: 'benchmark_main'
+- name: 'dashboards'
   orgId: 1
   folder: ''
   disableDeletion: true
@@ -9,5 +9,5 @@ providers:
   updateIntervalSeconds: 5
   type: file
   options:
-    path: /var/lib/grafana/default_dashboards
+    path: /var/lib/grafana/dashboards
 

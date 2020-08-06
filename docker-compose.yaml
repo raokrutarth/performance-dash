@@ -27,6 +27,8 @@ services:
       - prometheus
     ports:
       - '3000:3000'
+    volumes:
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
     restart: unless-stopped
 
   # https://medium.com/@bhargavshah2011/monitoring-docker-containers-using-cadvisor-and-prometheus-5350ae038f45

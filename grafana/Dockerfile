@@ -1,7 +1,7 @@
 FROM grafana/grafana:7.1.2
 COPY ./provisioning /etc/grafana/provisioning
 COPY ./grafana.ini /etc/grafana/grafana.ini
-COPY ./default_dashboards /var/lib/grafana/default_dashboards
+COPY ./dashboards /var/lib/grafana/dashboards
 
 
 # Generate TLS certificates to enable HTTPS only access to Grafana Server. [Optional]
