@@ -1,0 +1,56 @@
+
+
+version: '2'
+
+services:
+
+  prometheus:
+    image: prom/prometheus:latest
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.retention=720h'
+      # allow hot-reload of config
+      - '--web.enable-lifecycle'
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    depends_on:
+      - cadvisor
+      - docker-stat-exporter
+    restart: unless-stopped
+
+  grafana:
+    build: './grafana'
+    depends_on:
+      - prometheus
+    ports:
+      - '3000:3000'
+    restart: unless-stopped
+
+  # https://medium.com/@bhargavshah2011/monitoring-docker-containers-using-cadvisor-and-prometheus-5350ae038f45
+  cadvisor:
+    image: gcr.io/google-containers/cadvisor:latest
+    # Enable to expose these metrics directly and externally
+    # ports:
+    #   - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+  # https://github.com/wywywywy/docker_stats_exporter
+  docker-stat-exporter:
+    image: wywywywy/docker_stats_exporter:latest
+    # Enable to expose these metrics directly and externally
+    # ports:
+      # - 9487:9487
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    restart: unless-stopped
+
+volumes:
+  prometheus_data: {}

@@ -1,0 +1,45 @@
+global:
+    scrape_interval: 2s
+
+scrape_configs:
+
+# ===== Local/Host Metrics =====
+  - job_name: 'prometheus_self'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: host_docker_stats
+    static_configs:
+      - targets:
+        - docker-stat-exporter:9487
+
+  - job_name: host_cadvisor
+    static_configs:
+      - targets:
+        - cadvisor:8080
+
+# ===== Other Metrics =====
+
+  - job_name: kubelet_metrics
+    scheme: https
+    basic_auth:
+      username: admin
+      password: RHVoZnQ3RGk1STQ3cW5aeUdwTW84QXMrOEhTYzVvbnZQcXZjb0lwbFo0RT0K
+    static_configs:
+    - targets:
+      - 15.111.206.28:93232
+    metrics_path: /api/v1/nodes/canery/proxy/metrics
+    tls_config:
+      insecure_skip_verify: true
+
+  - job_name: cadviser_metrics
+    scheme: https
+    basic_auth:
+      username: admin
+      password: RHVoZnQ3RGk1STQ3cW5aeUdwTW84QXMrOEhTYzVvbnZQcXZjb0lwbFo0RT0K
+    static_configs:
+    - targets:
+      - 15.111.206.28:93232
+    metrics_path: /api/v1/nodes/canery/proxy/metrics/cadvisor
+    tls_config:
+      insecure_skip_verify: true
