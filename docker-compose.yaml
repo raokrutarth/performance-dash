@@ -1,6 +1,6 @@
 
 
-version: '2'
+version: '3.8'
 
 services:
 
@@ -31,9 +31,11 @@ services:
       - ./grafana/dashboards:/var/lib/grafana/dashboards
     restart: unless-stopped
 
+  # Local container-wise metrics
   # https://medium.com/@bhargavshah2011/monitoring-docker-containers-using-cadvisor-and-prometheus-5350ae038f45
   cadvisor:
     image: gcr.io/google-containers/cadvisor:latest
+    privileged: true
     # Enable to expose these metrics directly and externally
     # ports:
     #   - 8080:8080
@@ -43,6 +45,7 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
 
+  # aggregated docker stats
   # https://github.com/wywywywy/docker_stats_exporter
   docker-stat-exporter:
     image: wywywywy/docker_stats_exporter:latest
