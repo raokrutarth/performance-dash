@@ -21,6 +21,11 @@ scrape_configs:
 # ===== Other Metrics =====
 # for host, use: 172.17.0.1
 
+  - job_name: task_queue_benchmark
+    static_configs:
+    - targets:
+      - 172.17.0.1:45000
+
   - job_name: kubelet_metrics
     scheme: https
     basic_auth:

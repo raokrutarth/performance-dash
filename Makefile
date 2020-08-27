@@ -26,3 +26,5 @@ cleanv:
 
 cleani:
 	docker-compose down --remove-orphans --volumes --rmi all
+
+clear-data: cleanv start
