@@ -18,7 +18,6 @@ services:
       - prometheus_data:/prometheus
     depends_on:
       - cadvisor
-      - docker-stat-exporter
     restart: unless-stopped
 
   grafana:
@@ -44,18 +43,6 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-
-  # aggregated docker stats
-  # https://github.com/wywywywy/docker_stats_exporter
-  docker-stat-exporter:
-    image: wywywywy/docker_stats_exporter:latest
-    # Enable to expose these metrics directly and externally
-    # ports:
-      # - 9487:9487
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /usr/bin/docker:/usr/bin/docker
-    restart: unless-stopped
 
 volumes:
   prometheus_data: {}

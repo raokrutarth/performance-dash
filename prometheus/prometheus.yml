@@ -8,11 +8,6 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: host_docker_stats
-    static_configs:
-      - targets:
-        - docker-stat-exporter:9487
-
   - job_name: host_cadvisor
     static_configs:
       - targets:
