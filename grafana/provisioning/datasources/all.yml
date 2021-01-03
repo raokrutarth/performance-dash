@@ -10,3 +10,10 @@ datasources:
   orgId: 1
   url: http://prometheus:9090
   editable: false
+- name: InfluxDB
+  type: influxdb
+  access: proxy
+  database: auto_trader
+  url: http://172.17.0.1:8086
+  jsonData:
+    httpMode: GET
