@@ -9,6 +9,14 @@ be any Test/Production env)
 - Collect pprof profiles.
 - `microk8s.enable metrics-server`
 
+## cAdvisor webUI auth
+
+Start with `dc up cadvisor` for minimal setup.
+
+Auth created with `htpasswd -c ./cadvisor.auth dashboard`
+
+dashboard:u0Zvv3jwvUEE
+
 ## TODOs
 
 - hardcoded node name

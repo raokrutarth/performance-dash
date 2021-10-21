@@ -18,6 +18,10 @@ reload-prom:
 prom:
 	docker-compose up prometheus
 
+# bare bones setup and monitoring
+cadv:
+	docker-compose up -d cadvisor
+
 clean:
 	docker-compose down --remove-orphans
 

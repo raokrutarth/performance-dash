@@ -33,16 +33,21 @@ services:
   # Local container-wise metrics
   # https://medium.com/@bhargavshah2011/monitoring-docker-containers-using-cadvisor-and-prometheus-5350ae038f45
   cadvisor:
-    image: gcr.io/google-containers/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:latest
+    command:
+      - "-http_auth_file=/opt/creds.auth"
+      - "-storage_duration=5m0s"
     privileged: true
     # Enable to expose these metrics directly and externally
-    # ports:
-    #   - 8080:8080
+    ports:
+      - 34080:8080
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+      - ./cadvisor.auth:/opt/creds.auth
     restart: unless-stopped
 
 volumes:
