@@ -5,7 +5,11 @@ scrape_configs:
   # ===== Local/Host Metrics =====
   - job_name: "prometheus_self"
     static_configs:
-      - targets: ["localhost:9090"]
+      - targets:
+          - localhost:9090
+    basic_auth:
+      username: admin
+      password: Wfb8rG5ESTk
 
   - job_name: host_cadvisor
     static_configs:
@@ -19,6 +23,14 @@ scrape_configs:
   #   static_configs:
   #   - targets:
   #     - 172.17.0.1:45000
+
+  - job_name: auto_trader_celery
+    static_configs:
+      - targets:
+          - 172.17.0.1:34555
+    basic_auth:
+      username: admin
+      password: r6qYwfZwaHHsqZC2
 
   # - job_name: kubelet_metrics
   #   scheme: https

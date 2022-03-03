@@ -13,8 +13,9 @@ services:
     ports:
       - "39090:9090"
     volumes:
-      - ./prometheus/:/etc/prometheus/
+      - ./prometheus:/etc/prometheus:ro
       - prometheus_data:/prometheus
+      - ./prom.auth:/etc/self.auth:ro
     depends_on:
       - cadvisor
     restart: unless-stopped

@@ -15,9 +15,14 @@ set-limits:
 	docker update --memory=300M --cpus=1.25 performance-dash_cadvisor_1
 	docker update --memory=300M --cpus=1.25 performance-dash_prometheus_1
 
+# connect other containers not in dc file.
+# connect-others:
+# 	docker update performance-dash_prometheus_1 --link 
+
+
 reload-prom:
 	# to update config after prometheus.yml is updated
-	curl -X POST http://localhost:9090/-/reload
+	curl -u `cat prom.auth` -X POST http://localhost:39090/-/reload
 
 prom:
 	docker-compose up -d prometheus
