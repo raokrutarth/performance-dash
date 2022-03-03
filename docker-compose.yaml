@@ -1,5 +1,3 @@
-
-
 version: '3.8'
 
 services:
@@ -8,11 +6,12 @@ services:
     image: prom/prometheus:latest
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.config.file=/etc/prometheus/web.yml'
       - '--storage.tsdb.retention=720h'
       # allow hot-reload of config
       - '--web.enable-lifecycle'
     ports:
-      - "9090:9090"
+      - "39090:9090"
     volumes:
       - ./prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus

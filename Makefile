@@ -21,6 +21,7 @@ prom:
 # bare bones setup and monitoring
 cadv:
 	docker-compose up -d cadvisor
+	docker update --memory=300M --cpus=1.25 performance-dash_cadvisor_1
 
 clean:
 	docker-compose down --remove-orphans
