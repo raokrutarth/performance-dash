@@ -11,17 +11,22 @@ start:
 logs:
 	docker-compose logs -f
 
+set-limits:
+	docker update --memory=300M --cpus=1.25 performance-dash_cadvisor_1
+	docker update --memory=300M --cpus=1.25 performance-dash_prometheus_1
+
 reload-prom:
 	# to update config after prometheus.yml is updated
 	curl -X POST http://localhost:9090/-/reload
 
 prom:
-	docker-compose up prometheus
+	docker-compose up -d prometheus
+	make -s set-limits
 
 # bare bones setup and monitoring
-cadv:
+simple:
 	docker-compose up -d cadvisor
-	docker update --memory=300M --cpus=1.25 performance-dash_cadvisor_1
+	make -s set-limits
 
 clean:
 	docker-compose down --remove-orphans
